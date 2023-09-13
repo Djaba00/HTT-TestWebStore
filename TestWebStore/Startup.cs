@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TestWebStore.DataAccess.ApplicationContext;
+using TestWebStore.DataAccess.Repositories.Products;
+using TestWebStore.DataAccess.Repositories.Categories;
 
 namespace TestWebStore
 {
@@ -22,6 +24,9 @@ namespace TestWebStore
             string msSqlConnectionString = Configuration.GetConnectionString("MsSqlServer");
 
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(msSqlConnectionString));
+
+            services.AddTransient<IProductsRepository, ProductsRepository>();
+            services.AddTransient<ICategoriesRepository, CategoriesRepository>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
