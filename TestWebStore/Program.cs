@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using System;
 
-namespace TestWeb
+namespace TestWebStore
 {
     class Program
     {

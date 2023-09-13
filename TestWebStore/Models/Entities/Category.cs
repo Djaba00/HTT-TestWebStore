@@ -1,4 +1,4 @@
-﻿namespace TestWeb.Models.Entities
+﻿namespace TestWebStore.Models.Entities
 {
     public class Category
     {

@@ -1,8 +1,8 @@
-﻿using TestWeb.Models;
+﻿using TestWebStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace TestWeb.Controllers
+namespace TestWebStore.Controllers
 {
     public class HomeController : Controller
     {

@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TestWeb.DataAccess.ApplicationContext;
+using TestWebStore.DataAccess.ApplicationContext;
 
-namespace HTT_TestWeb
+namespace TestWebStore
 {
     public class Startup
     {

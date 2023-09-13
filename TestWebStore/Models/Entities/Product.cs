@@ -1,4 +1,4 @@
-﻿namespace TestWeb.Models.Entities
+﻿namespace TestWebStore.Models.Entities
 {
     public class Product
     {
@@ -7,6 +7,6 @@
         public string Description { get; set; }
         public int Price { get; set; }
         public int inStock { get; set; }
-        public List<Category> Categories { get; set; }
+        public Category Category { get; set; }
     }
 }
