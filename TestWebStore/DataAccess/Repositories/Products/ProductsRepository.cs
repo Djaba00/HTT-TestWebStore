@@ -31,13 +31,18 @@ namespace TestWebStore.DataAccess.Repositories.Products
         {
             return await Products.Include(p => p.Category).Where(p => p.Name.Contains(name)).ToListAsync();
         }
-        public async Task CreateAsync(Product product)
+        public async Task<bool> CreateAsync(Product product)
         {
             Products.Add(product);
 
-            await _context.SaveChangesAsync();
+            var result = await _context.SaveChangesAsync();
+
+            if (result > 0)
+                return true;
+            else
+                return false;
         }
-        public async Task UpdateAsync(Product updateProduct)
+        public async Task<bool> UpdateAsync(Product updateProduct)
         {
             var currentProduct = await GetByIdAsync(updateProduct.Id);
 
@@ -46,17 +51,29 @@ namespace TestWebStore.DataAccess.Repositories.Products
             currentProduct.Price = updateProduct.Price;
             currentProduct.inStock = updateProduct.inStock;
             currentProduct.CategoryId = updateProduct.CategoryId;
-            currentProduct.Category = updateProduct.Category;
 
             Products.Update(currentProduct);
-            await _context.SaveChangesAsync();
+
+            var result = await _context.SaveChangesAsync();
+
+            if (result > 0)
+                return true;
+            else
+                return false;
         }
 
-        public async Task DeleteAsync(Product product)
+        public async Task<bool> DeleteAsync(Product deleteProduct)
         {
+            var product = await GetByIdAsync(deleteProduct.Id);
+
             Products.Remove(product);
 
-            await _context.SaveChangesAsync();
+            var result = await _context.SaveChangesAsync();
+
+            if (result > 0)
+                return true;
+            else
+                return false;
         }
     }
 }

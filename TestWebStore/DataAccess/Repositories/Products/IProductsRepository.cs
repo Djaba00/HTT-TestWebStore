@@ -7,8 +7,8 @@ namespace TestWebStore.DataAccess.Repositories.Products
         Task<List<Product>> GetAllAsync();
         Task<Product> GetByIdAsync(int id);
         Task<List<Product>> GetByNameAsync(string name);
-        Task CreateAsync(Product product);
-        Task UpdateAsync(Product product);
-        Task DeleteAsync(Product product);
+        Task<bool> CreateAsync(Product product);
+        Task<bool> UpdateAsync(Product product);
+        Task<bool> DeleteAsync(Product product);
     }
 }

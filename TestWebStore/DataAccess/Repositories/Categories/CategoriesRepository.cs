@@ -31,20 +31,25 @@ namespace TestWebStore.DataAccess.Repositories.Categories
             return await Categories.Include(c => c.Products).Where(c => c.Name.Contains(name)).ToListAsync();
         }
 
-        public async Task CreateAsync(Category category)
+        public async Task<bool> CreateAsync(Category category)
         {
             if (Categories.FirstOrDefault(c => c.Name == category.Name) is null)
             {
                 Categories.Add(category);
 
-                await _context.SaveChangesAsync();
+                var result = await _context.SaveChangesAsync();
+
+                if (result > 0)
+                    return true;
+                else
+                    return false;
             }
             else
             {
                 throw new Exception("Данная категория уже существует");
             }
         }
-        public async Task UpdateAsync(Category updateCategory)
+        public async Task<bool> UpdateAsync(Category updateCategory)
         {
             var currentCategory = await GetAsync(updateCategory.Name);
 
@@ -53,14 +58,24 @@ namespace TestWebStore.DataAccess.Repositories.Categories
 
             Categories.Update(currentCategory);
 
-            await _context.SaveChangesAsync();
+            var result = await _context.SaveChangesAsync();
+
+            if (result > 0)
+                return true;
+            else
+                return false;
         }
 
-        public async Task DeleteAsync(Category category)
+        public async Task<bool> DeleteAsync(Category category)
         {
             Categories.Remove(category);
 
-            await _context.SaveChangesAsync();
+            var result = await _context.SaveChangesAsync();
+
+            if (result > 0)
+                return true;
+            else
+                return false;
         }
 
         
