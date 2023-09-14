@@ -1,0 +1,46 @@
+﻿@model TestWebStore.Models.ViewModels.ProductViewModel;
+
+@{
+    ViewData["Title"] = "AddNewProduct";
+}
+
+<div class="products-container">
+    <h4>Добавить новый продукт</h4>
+    <form class="newProduct-form" method="post" asp-controller="Products" asp-action="AddProduct">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <div class="mrgn">
+                
+                <input asp-for="Name" class="form-control" placeholder="Название товара" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>  
+        </div>
+        <div>
+            <div class="mrgn">
+                <input asp-for="Description" class="form-control" placeholder="Описание товара" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <div class="mrgn">
+                <input asp-for="Price" class="form-control" placeholder="Цена товара" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <div class="mrgn">
+                <input asp-for="InStock" class="form-control" placeholder="Количество товара" />
+                <span asp-validation-for="InStock" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <div class="mrgn">
+                <input asp-for="Category" class="form-control" placeholder="Категория товара" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <input class="enter_submit" type="submit" value="Добавить товар" />
+        </div>
+    </form>
+</div>

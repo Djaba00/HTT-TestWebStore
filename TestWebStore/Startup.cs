@@ -48,12 +48,12 @@ namespace TestWebStore
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
 
-                app.UseHsts();
-            }
+            //    app.UseHsts();
+            //}
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

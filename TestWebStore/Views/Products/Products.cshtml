@@ -1,0 +1,29 @@
+﻿@using TestWebStore.Models.ViewModels;
+
+@model List<ProductViewModel>;
+
+<div class="products-container">
+
+    @foreach (var product in Model)
+    {
+        <div class="product-container">
+            <div class="product-info-container">
+                <label>@product.Name</label>
+                <p>@product.Description</p>
+                <p>@product.Price руб.</p>
+                <p>@product.InStock шт.</p>
+                <p>@product.Category</p>
+            </div>
+            <form asp-area="" asp-controller="Products" asp-action="EditProduct" asp-route-id="@product.Id" method="post">
+                <button type="submit">
+                    Редактировать
+                </button>
+            </form>
+            <form asp-area="" asp-controller="Products" asp-action="RemoveProduct" asp-route-id="@product.Id" method="post">
+                <button type="submit">
+                    Удалить
+                </button>
+            </form>
+        </div>
+    }
+</div>
