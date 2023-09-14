@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using TestWebStore.DataAccess.ApplicationContext;
 using TestWebStore.DataAccess.Repositories.Products;
 using TestWebStore.DataAccess.Repositories.Categories;
+using AutoMapper;
 
 namespace TestWebStore
 {
@@ -21,6 +22,15 @@ namespace TestWebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var mapperConfig = new MapperConfiguration(p =>
+            {
+                p.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
+
             string msSqlConnectionString = Configuration.GetConnectionString("MsSqlServer");
 
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(msSqlConnectionString));
