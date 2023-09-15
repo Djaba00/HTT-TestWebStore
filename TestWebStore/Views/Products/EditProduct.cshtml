@@ -1,1 +1,30 @@
 ﻿@model TestWebStore.Models.ViewModels.ProductViewModel;
+
+@{
+    ViewData["Title"] = "EditProduct";
+}
+
+<div class="products-container">
+    <h4>Редактировать продукт продукт</h4>
+    <form class="newProduct-form" method="post" asp-controller="Products" asp-action="AddProduct">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="mrgn">
+            <input asp-for="Name" value="@Model.Name" class="form-control" placeholder="Name" />
+        </div>
+        <div class="mrgn">
+            <input asp-for="Description" value="@Model.Description" class="form-control" placeholder="Описание товара" />
+        </div>
+        <div class="mrgn">
+            <input asp-for="Price" value="@Model.Price" class="form-control" placeholder="Цена товара" />
+        </div>
+        <div class="mrgn">
+            <input asp-for="InStock" value="@Model.InStock" class="form-control" placeholder="Количество товара" />
+        </div>
+        <div class="mrgn">
+            <input asp-for="Category" value="@Model.Category" class="form-control" placeholder="Категория товара" />
+        </div>
+        <div>
+            <input class="enter_submit" type="submit" value="Добавить товар" />
+        </div>
+    </form>
+</div>

@@ -3,6 +3,12 @@
 @model List<ProductViewModel>;
 
 <div class="products-container">
+    <form asp-area="" asp-controller="Products" asp-action="SearchProducts" method="get">
+        <input name="name" class="form-control" placeholder="Название продукта" />
+        <button type="submit">
+            Поиск
+        </button>
+    </form>
 
     @foreach (var product in Model)
     {
@@ -14,7 +20,7 @@
                 <p>@product.InStock шт.</p>
                 <p>@product.Category</p>
             </div>
-            <form asp-area="" asp-controller="Products" asp-action="EditProduct" asp-route-id="@product.Id" method="post">
+            <form asp-area="" asp-controller="Products" asp-action="EditProduct" asp-route-id="@product.Id" method="get">
                 <button type="submit">
                     Редактировать
                 </button>

@@ -30,9 +30,14 @@ namespace TestWebStore.Controllers
             {
                 var findedProducts = await _products.GetByNameAsync(name);
 
-                var result = _mapper.Map<ProductViewModel>(findedProducts);
+                var result = new List<ProductViewModel>();
 
-                return Json(result);
+                foreach (var product in findedProducts)
+                {
+                    result.Add(_mapper.Map<ProductViewModel>(product));
+                }
+
+                return View("Products", result);
             }
 
             return RedirectToAction("Products");
@@ -81,12 +86,21 @@ namespace TestWebStore.Controllers
 
         [Route("Products/EditProduct")]
         [HttpGet]
-        public IActionResult EditProduct()
+        public async Task<IActionResult> EditProduct(int id)
         {
-            return View("Product/EditProduct");
+            var product = await _products.GetByIdAsync(id);
+
+            if (product is null)
+            {
+                return RedirectToAction("Products");
+            }
+
+            var result = _mapper.Map<ProductViewModel>(product);
+
+            return View("EditProduct", result);
         }
 
-        [Route("EditProduct")]
+        [Route("Products/EditProduct")]
         [HttpPost]
         public async Task<IActionResult> EditProductAsync(ProductViewModel updateProduct)
         {
