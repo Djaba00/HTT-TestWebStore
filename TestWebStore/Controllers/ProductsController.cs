@@ -22,6 +22,11 @@ namespace TestWebStore.Controllers
             _categories = categories;
         }
 
+        /// <summary>
+        /// Поиск продуктов по названию
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [Route("Products/SearchProducts")]
         [HttpGet]
         public async Task<IActionResult> SearchAsync(string name)
@@ -43,6 +48,10 @@ namespace TestWebStore.Controllers
             return RedirectToAction("Products");
         }
 
+        /// <summary>
+        /// Получить список всех продуктов
+        /// </summary>
+        /// <returns></returns>
         [Route("Products/Products")]
         [HttpGet]
         public async Task<IActionResult> GetAllProductsAsync()
@@ -59,6 +68,10 @@ namespace TestWebStore.Controllers
             return View("Products", result);
         }
 
+        /// <summary>
+        /// Получить страницу создания нового продукта
+        /// </summary>
+        /// <returns></returns>
         [Route("Products/AddProduct")]
         [HttpGet]
         public IActionResult AddProduct()
@@ -66,6 +79,11 @@ namespace TestWebStore.Controllers
             return View("AddProduct");
         }
 
+        /// <summary>
+        /// HTTP POST метод создания нового продукта
+        /// </summary>
+        /// <param name="newProduct"></param>
+        /// <returns></returns>
         [Route("Products/AddProduct")]
         [HttpPost]
         public async Task<IActionResult> AddProductAsync(ProductViewModel newProduct)
@@ -73,6 +91,16 @@ namespace TestWebStore.Controllers
             var product = _mapper.Map<Product>(newProduct);
 
             var category = await _categories.GetAsync(newProduct.Category);
+
+            if (category == null)
+            {
+                var newCategory = await _categories.CreateAsync(new Category { Name = newProduct.Category });
+
+                if (newCategory)
+                {
+                    category = await _categories.GetAsync(newProduct.Category);
+                }
+            }
 
             product.Category = category;
 
@@ -83,7 +111,12 @@ namespace TestWebStore.Controllers
             else
                 return RedirectToAction("Index");
         }
-
+         
+        /// <summary>
+        /// Получить страницу редактирования существующего продукта
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("Products/EditProduct")]
         [HttpGet]
         public async Task<IActionResult> EditProduct(int id)
@@ -100,6 +133,11 @@ namespace TestWebStore.Controllers
             return View("EditProduct", result);
         }
 
+        /// <summary>
+        /// HTTP POST метод редактирования продукта
+        /// </summary>
+        /// <param name="updateProduct"></param>
+        /// <returns></returns>
         [Route("Products/EditProduct")]
         [HttpPost]
         public async Task<IActionResult> EditProductAsync(ProductViewModel updateProduct)
@@ -118,6 +156,11 @@ namespace TestWebStore.Controllers
                 return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// HTTP POST метод удаления продукта
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("Products/RemoveProduct")]
         [HttpPost]
         public async Task<IActionResult> RemoveProductAsync(int id)
