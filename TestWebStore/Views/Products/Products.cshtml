@@ -20,11 +20,11 @@
                 <p>@product.InStock шт.</p>
                 <p>@product.Category</p>
             </div>
-            <form asp-area="" asp-controller="Products" asp-action="EditProduct" asp-route-id="@product.Id" method="get">
+            <a asp-area="" asp-controller="Products" asp-action="EditProduct" asp-route-id="@product.Id" method="get">
                 <button type="submit">
                     Редактировать
                 </button>
-            </form>
+            </a>
             <form asp-area="" asp-controller="Products" asp-action="RemoveProduct" asp-route-id="@product.Id" method="post">
                 <button type="submit">
                     Удалить
